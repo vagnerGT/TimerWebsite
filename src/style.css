@@ -23,8 +23,8 @@ html {
 
 .header img {
     height: 30px;
-    -webkit-filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.3));
-    filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.3));
+    -webkit-filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.2));
+    filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.2));
 }
 
 .header ul {
@@ -43,22 +43,20 @@ html {
 .header ul li a {
     text-decoration: none;
     font-size: 25px;
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
     font-weight: bold;
     font-family: roboto-black;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
 }
 
 
 /* body */
 
-html, body {
+body {
     margin: 0px;
-	padding: 0px;
-    /*background: linear-gradient(
-        132deg, 
-       var(--purple) 10%, 
-       var(--blue) 46%,
-       var(--indigo) 80%);*/
-    background-color: rgb(255, 255, 255);
+    padding: 0px;
+    background-color: #3442BF;
+    /*   background-color: #0093E9;
+       background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%); */
+       
 }
