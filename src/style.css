@@ -1,0 +1,43 @@
+:root {
+    --blue: #4007ff;
+    --indigo: #2800af;
+    --purple: #6a18ea;
+    --aqua: #87fff2;
+}
+
+
+/* header */
+
+.header img {
+    height: 40px;
+}
+
+.header ul {
+    padding: 10px;
+    display: flex;
+    list-style: none;
+}
+
+.header ul li {
+    display: inline-block;
+    margin-left: 15px;
+}
+
+.header ul li a {
+    text-decoration: none;
+    font-size: 35px;
+    color: black;
+    font-weight: bold;
+}
+
+
+/* body */
+
+html, body {
+    height: 100%;
+    background: linear-gradient(
+        132deg, 
+       var(--purple) 10%, 
+       var(--blue) 46%,
+       var(--indigo) 80%);
+}
