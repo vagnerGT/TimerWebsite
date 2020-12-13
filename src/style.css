@@ -27,20 +27,11 @@ html {
     filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.2));
 }
 
-.header ul {
-    margin: 0px;
+.header a {
     padding: 20px 30px;
-    display: flex;
-    list-style: none;
+    display: inline-flex;
     align-items: center;
-}
-
-.header ul li {
-    display: inline-block;
-    margin-left: 5px;
-}
-
-.header ul li a {
+    
     text-decoration: none;
     font-size: 25px;
     color: rgb(255, 255, 255);
@@ -59,4 +50,45 @@ body {
     /*   background-color: #0093E9;
        background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%); */
        
+}
+
+/* timer */
+
+.timer {
+    width: 30%;
+    display: table;
+    margin: 10% auto;
+    background-color: white;
+}
+
+.timer div {
+    margin: 30px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.timer input {
+    margin: 10px 5px;
+    font-size: 35px;
+    text-align: center;
+    width: 3rem;
+}
+
+.timer #counter {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.start-stop-button {
+    font-family: roboto-black;
+    font-size: 20px;
+    margin: 0px;
+}
+
+.reset-button {
+    font-family: roboto-black;
+    font-size: 20px;
+    margin: 0px;
 }

@@ -9,10 +9,24 @@
 </head>
 <body>
     <div id="header" class="header">
-        <ul>
-            <li><img class="logo" src="./images/logo.png" alt="logo"></li>
-            <li><a href="index.html" accesskey="1">Timer</a></li>
-        </ul>
+            <a href="index.html">
+            <img class="logo" src="./images/logo.png" alt="logo"></li>
+            <span>Timer</span>
+            </a>
+    </div>
+
+    <div id="main" class="timer">
+        <div id="counter">
+            <input type="text" name="time" id="time">
+            <span>:</span>
+            <input type="text" name="time" id="time">
+            <span>:</span>
+            <input type="text" name="time" id="time">
+        </div>
+        <div>
+            <button class="start-stop-button">Start-stop</button>
+            <button class="reset-button">Reset</button>
+        </div>
     </div>
 </body>
 </html>
