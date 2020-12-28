@@ -6,6 +6,7 @@
     <title>Timer</title>
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="./icons/favicon.ico" type="image/x-icon">
+    <script src="javascript.js"></script>
 </head>
 <body>
     <div id="header" class="header">
@@ -17,13 +18,13 @@
 
     <div id="main" class="timer">
         <div id="counter">
-            <input type="text" name="time" id="time">
+            <input id="hour" type="text" name="time" value="00">
             <span>:</span>
-            <input type="text" name="time" id="time">
+            <input id="minute" type="text" name="time" value="00">
             <span>:</span>
-            <input type="text" name="time" id="time">
+            <input id="second" type="text" name="time" value="00">
         </div>
-        <div>
+        <div id="buttons">
             <button class="start-stop-button">Start-stop</button>
             <button class="reset-button">Reset</button>
         </div>

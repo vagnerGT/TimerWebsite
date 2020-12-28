@@ -11,8 +11,12 @@ html {
 
 @font-face {
     font-family: roboto-black;
-    src: url(./fonts/Roboto-Black.ttf);
+    src: url(./fonts/Roboto-Black.ttf) format("truetype");
   }
+@font-face {
+    font-family: anton-regular;
+    src: url(./fonts/Anton-Regular.ttf) format("truetype");
+}
 
 
 /* header */
@@ -28,10 +32,9 @@ html {
 }
 
 .header a {
-    padding: 20px 30px;
+    margin: 20px 30px;
     display: inline-flex;
     align-items: center;
-    
     text-decoration: none;
     font-size: 25px;
     color: rgb(255, 255, 255);
@@ -55,23 +58,25 @@ body {
 /* timer */
 
 .timer {
-    width: 30%;
-    display: table;
-    margin: 10% auto;
-    background-color: white;
+    max-width: 100%;
+    margin: 100px auto;
 }
 
-.timer div {
-    margin: 30px;
-    display: flex;
-    justify-content: space-around;
+.timer span {
+    font-family: anton-regular;
+    font-size: 50px;
+    font-weight: bold;
 }
 
 .timer input {
+    font-family: roboto-black;
     margin: 10px 5px;
-    font-size: 35px;
+    font-size: 70px;
     text-align: center;
-    width: 3rem;
+    width: 6rem;
+    background-color: rgba(255, 255, 255, 0);
+    border-style: none;
+    border-radius: 10%;
 }
 
 .timer #counter {
@@ -79,6 +84,30 @@ body {
     justify-content: center;
     align-content: center;
     align-items: center;
+}
+
+.timer #buttons {
+    width: 40%;
+    margin: 40px auto;
+    display: flex;
+    justify-content: space-around;
+}
+
+.timer button {
+    border-style: solid;
+    border-width: 4px;
+    border-color: white;
+    background: none;
+    color: white;
+    width: 8rem;
+    height: 3rem;
+    outline: none;
+}
+
+.timer button:hover {
+    background-color: white;
+    color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
 }
 
 .start-stop-button {
