@@ -18,6 +18,16 @@ html {
     src: url(./fonts/Anton-Regular.ttf) format("truetype");
 }
 
+/* tools */
+
+.noselect {
+    -webkit-touch-callout: none;
+      -webkit-user-select: none;
+       -khtml-user-select: none;
+         -moz-user-select: none;
+          -ms-user-select: none;
+              user-select: none;
+  }
 
 /* header */
 
@@ -32,7 +42,7 @@ html {
 }
 
 .header a {
-    margin: 20px 30px;
+    margin: 2vh 2vw;
     display: inline-flex;
     align-items: center;
     text-decoration: none;
@@ -41,6 +51,7 @@ html {
     font-weight: bold;
     font-family: roboto-black;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
+    -webkit-tap-highlight-color: transparent;
 }
 
 
@@ -48,52 +59,63 @@ html {
 
 body {
     margin: 0px;
-    padding: 0px;
     background-color: #3442BF;
-    /*   background-color: #0093E9;
-       background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%); */
-       
 }
 
 /* timer */
 
 .timer {
-    max-width: 100%;
-    margin: 100px auto;
+    margin-top: 20vh;
+    width: 100vw;
+    display: flexbox;
+    justify-content: center;
+}
+
+.timer #counter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
 }
 
 .timer span {
     font-family: anton-regular;
     font-size: 50px;
     font-weight: bold;
+    color: white;
 }
 
 .timer input {
+    transition: ease-in 0.1s;
     font-family: roboto-black;
-    margin: 10px 5px;
     font-size: 70px;
+    color: white;
     text-align: center;
-    width: 6rem;
-    background-color: rgba(255, 255, 255, 0);
+    width: 5.2rem;
+    background-color: transparent;
     border-style: none;
-    border-radius: 10%;
+    outline: none;
+    margin: 5px 10px;
 }
 
-.timer #counter {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
+.timer input:hover {
+    cursor: pointer;
+}
+
+.timer input:focus {
+    outline: 3px solid rgba(0, 0, 0, 0.5);
+    cursor: auto;
 }
 
 .timer #buttons {
-    width: 40%;
-    margin: 40px auto;
+    margin-top: 10vh;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
 }
 
 .timer button {
+    border-radius: 30px;
+    transition: ease 0.2s;
     border-style: solid;
     border-width: 4px;
     border-color: white;
@@ -101,7 +123,9 @@ body {
     color: white;
     width: 8rem;
     height: 3rem;
+    min-height: fit-content;
     outline: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .timer button:hover {
@@ -110,14 +134,37 @@ body {
     cursor: pointer;
 }
 
+.timer button:active {
+    transform: scale(0.9);
+}
+
 .start-stop-button {
+    margin-right: 8vw;
     font-family: roboto-black;
     font-size: 20px;
-    margin: 0px;
 }
 
 .reset-button {
+    margin-left: 8vw;
     font-family: roboto-black;
     font-size: 20px;
-    margin: 0px;
 }
+
+
+
+
+@media only screen and (max-width: 500px) {
+    .timer {
+        transform: scale(0.7);
+    }
+    .timer button {
+        margin-top: 20vh;
+    }
+}
+@media only screen and (max-width: 300px) {
+    .timer {
+        transform: scale(0.6);
+    }
+
+}
+ 

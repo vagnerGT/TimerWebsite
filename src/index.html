@@ -2,11 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Timer</title>
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="./icons/favicon.ico" type="image/x-icon">
-    <script src="javascript.js"></script>
 </head>
 <body>
     <div id="header" class="header">
@@ -16,18 +15,23 @@
             </a>
     </div>
 
+    <!-- A rX,rY rotation, arc, sweep, eX,eY -->
+
     <div id="main" class="timer">
         <div id="counter">
-            <input id="hour" type="text" name="time" value="00">
+            <input id="hour" type="text" name="time" value="00" maxlength="2">
             <span>:</span>
-            <input id="minute" type="text" name="time" value="00">
+            <input id="minute" type="text" name="time" value="00" maxlength="2">
             <span>:</span>
-            <input id="second" type="text" name="time" value="00">
+            <input id="second" type="text" name="time" value="00" maxlength="2">
         </div>
         <div id="buttons">
-            <button class="start-stop-button">Start-stop</button>
-            <button class="reset-button">Reset</button>
+            <button class="start-stop-button noselect">Start</button>
+            <button class="reset-button noselect">Reset</button>
         </div>
     </div>
+
+    
 </body>
+    <script src="javascript.js"></script>
 </html>
