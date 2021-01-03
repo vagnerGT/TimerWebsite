@@ -2,7 +2,11 @@ var hour = document.getElementById("hour");
 var minute = document.getElementById("minute");
 var second = document.getElementById("second");
 
-//input events
+var startButton = document.getElementById("start-button");
+var pauseResumeButton = document.getElementById("pause-resume-button");
+var resetButton = document.getElementById("reset-button");
+
+//text input events
 
 hour.addEventListener("focus", selectAll);
 hour.addEventListener("focusout", formatText);
@@ -20,7 +24,7 @@ second.addEventListener("keypress", blockNonNumericInput);
 second.addEventListener("paste", pasteOnlyNumbers);
 
 
-//input events functions
+//text input events functions
 
 function selectAll(e) {
     e.target.select();
@@ -53,6 +57,32 @@ function pasteOnlyNumbers (e) {
     e.preventDefault();
 }
 
-//
+//buttons events
+
+startButton.addEventListener("mouseup", startTimer);
+pauseResumeButton.addEventListener("mouseup", togglePauseResume);
+resetButton.addEventListener("mouseup", ResetTimer);
+
+function startTimer(e) {
+    e.target.style.display = "none";
+    e.target.parentNode.style.justifyContent = "space-around";
+    pauseResumeButton.style.display = "block";
+    resetButton.style.display = "block";
+}
+
+function togglePauseResume(e) {
+    if(e.target.innerHTML == "Pause") {
+        e.target.innerHTML = "Resume";
+    }else{
+        e.target.innerHTML = "Pause";
+    }
+}
+function ResetTimer(e) {
+    startButton.style.display = "block";
+    e.target.parentNode.style.justifyContent = "center";
+    pauseResumeButton.style.display = "none";
+    pauseResumeButton.innerHTML = "Pause";
+    resetButton.style.display = "none";
+}
 
 

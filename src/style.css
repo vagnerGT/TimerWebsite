@@ -108,9 +108,10 @@ body {
 }
 
 .timer #buttons {
-    margin-top: 10vh;
+    max-width: 400px;
     display: flex;
     justify-content: center;
+    margin: 20vh auto;
 }
 
 .timer button {
@@ -138,33 +139,36 @@ body {
     transform: scale(0.9);
 }
 
-.start-stop-button {
-    margin-right: 8vw;
+.pause-resume-button {
+    display: none;
     font-family: roboto-black;
     font-size: 20px;
 }
 
 .reset-button {
-    margin-left: 8vw;
+    display: none;
     font-family: roboto-black;
     font-size: 20px;
 }
 
+.start-button {
+    font-family: roboto-black;
+    font-size: 20px;
+}
+
+/* animations */
 
 
 
-@media only screen and (max-width: 500px) {
-    .timer {
+/* media query */
+
+@media only screen and (max-width: 600px) {
+    .timer #counter {
         transform: scale(0.7);
     }
-    .timer button {
-        margin-top: 20vh;
-    }
-}
-@media only screen and (max-width: 300px) {
-    .timer {
-        transform: scale(0.6);
-    }
 
+    .timer #buttons button{
+        transform: scale(0.8);
+    }
 }
  
