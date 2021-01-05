@@ -1,30 +1,42 @@
-var hour = document.getElementById("hour");
-var minute = document.getElementById("minute");
-var second = document.getElementById("second");
+var hourInput = document.getElementById("hour");
+var minuteInput = document.getElementById("minute");
+var secondInput = document.getElementById("second");
 
 var startButton = document.getElementById("start-button");
 var pauseResumeButton = document.getElementById("pause-resume-button");
-var resetButton = document.getElementById("reset-button");
+var cancelButton = document.getElementById("cancel-button");
+
+//styles
+
+function buttonBackground(button, on) {
+    if(on){
+        button.style.backgroundColor = "white";
+        button.style.color = "rgba(0, 0, 0, 0.5)";
+    }else {
+        button.style.backgroundColor = "transparent";
+        button.style.color = "white";
+    }
+}
+
+
+
 
 //text input events
 
-hour.addEventListener("focus", selectAll);
-hour.addEventListener("focusout", formatText);
-hour.addEventListener("keypress", blockNonNumericInput);
-hour.addEventListener("paste", pasteOnlyNumbers);
+hourInput.addEventListener("focus", selectAll);
+hourInput.addEventListener("focusout", formatText);
+hourInput.addEventListener("keypress", blockNonNumericInput);
+hourInput.addEventListener("paste", pasteOnlyNumbers);
 
-minute.addEventListener("focusout", formatText);
-minute.addEventListener("focus", selectAll);
-minute.addEventListener("keypress", blockNonNumericInput);
-minute.addEventListener("paste", pasteOnlyNumbers);
+minuteInput.addEventListener("focusout", formatText);
+minuteInput.addEventListener("focus", selectAll);
+minuteInput.addEventListener("keypress", blockNonNumericInput);
+minuteInput.addEventListener("paste", pasteOnlyNumbers);
 
-second.addEventListener("focus", selectAll);
-second.addEventListener("focusout", formatText);
-second.addEventListener("keypress", blockNonNumericInput);
-second.addEventListener("paste", pasteOnlyNumbers);
-
-
-//text input events functions
+secondInput.addEventListener("focus", selectAll);
+secondInput.addEventListener("focusout", formatText);
+secondInput.addEventListener("keypress", blockNonNumericInput);
+secondInput.addEventListener("paste", pasteOnlyNumbers);
 
 function selectAll(e) {
     e.target.select();
@@ -57,17 +69,28 @@ function pasteOnlyNumbers (e) {
     e.preventDefault();
 }
 
-//buttons events
 
-startButton.addEventListener("mouseup", startTimer);
+//Buttons events
+
+startButton.addEventListener("pointerup", startTimer);
 pauseResumeButton.addEventListener("mouseup", togglePauseResume);
-resetButton.addEventListener("mouseup", ResetTimer);
+cancelButton.addEventListener("mouseup", cancelTimer);
 
 function startTimer(e) {
-    e.target.style.display = "none";
-    e.target.parentNode.style.justifyContent = "space-around";
-    pauseResumeButton.style.display = "block";
-    resetButton.style.display = "block";
+    cancelButton.classList.remove("right-slide-in");
+    cancelButton.classList.remove("left-slide-out");
+    cancelButton.offsetHeight;
+    cancelButton.classList.add("right-slide-in");
+
+    pauseResumeButton.classList.remove("left-slide-in");
+    pauseResumeButton.classList.remove("right-slide-out");
+    pauseResumeButton.offsetHeight;
+    pauseResumeButton.classList.add("left-slide-in");
+
+    startButton.classList.remove("fade-in");
+    startButton.classList.remove("fade-out");
+    startButton.offsetHeight;
+    startButton.classList.add("fade-out");
 }
 
 function togglePauseResume(e) {
@@ -77,12 +100,85 @@ function togglePauseResume(e) {
         e.target.innerHTML = "Pause";
     }
 }
-function ResetTimer(e) {
-    startButton.style.display = "block";
-    e.target.parentNode.style.justifyContent = "center";
-    pauseResumeButton.style.display = "none";
+
+function cancelTimer(e) {
+    cancelButton.classList.remove("right-slide-in");
+    cancelButton.classList.remove("left-slide-out");
+    cancelButton.offsetHeight;
+    cancelButton.classList.add("left-slide-out");
+
+    pauseResumeButton.classList.remove("left-slide-in");
+    pauseResumeButton.classList.remove("right-slide-out");
+    pauseResumeButton.offsetHeight;
+    pauseResumeButton.classList.add("right-slide-out");
+
+    startButton.classList.remove("fade-in");
+    startButton.classList.remove("fade-out");
+    startButton.offsetHeight;
+    startButton.classList.add("fade-in");
+
     pauseResumeButton.innerHTML = "Pause";
-    resetButton.style.display = "none";
 }
 
+
+//Timer
+
+class counter {
+
+    constructor () {
+        this.startTime = 0;
+        this.endTime = 0;
+        this.paused = false;
+    }
+
+    timeNow(){
+        return Math.ceil(new Date().getTime() / 1000);
+    }
+
+    setTimer(hour, minute, second) {
+        this.startTime = timeNow();
+        this.endTime = this.startTime + (hour * 3600) + (minute * 60) + (second);
+    }
+
+    getTime(){
+        let timeLeft = endTimer - timeNow();
+        if(timeLeft <= 0) return [0, 0, 0];
+
+        let hour = Math.floor(timeLeft / 3600);
+        let minute = Math.floor(timeLeft % 3600 / 60);
+        let second = timeLeft % 3600 % 60;
+
+        return [hour, minute, second];
+    }
+    
+}
+
+var timer = new counter();
+
+
+//misc
+/*
+startButton.addEventListener("")
+startButton.addEventListener("mouseenter", (e) => {
+    
+    buttonBackground(e.target, true);
+});
+startButton.addEventListener("mouseleave", (e) => {
+    buttonBackground(e.target, false);
+});
+
+pauseResumeButton.addEventListener("mouseenter", (e) => {
+    buttonBackground(e.target, true);
+});
+pauseResumeButton.addEventListener("mouseleave", (e) => {
+    buttonBackground(e.target, false);
+});
+
+cancelButton.addEventListener("mouseenter", (e) => {
+    buttonBackground(e.target, true);
+});
+cancelButton.addEventListener("mouseleave", (e) => {
+    buttonBackground(e.target, false);
+});
+*/
 
