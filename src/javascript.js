@@ -6,20 +6,6 @@ var startButton = document.getElementById("start-button");
 var pauseResumeButton = document.getElementById("pause-resume-button");
 var cancelButton = document.getElementById("cancel-button");
 
-//styles
-
-function buttonBackground(button, on) {
-    if(on){
-        button.style.backgroundColor = "white";
-        button.style.color = "rgba(0, 0, 0, 0.5)";
-    }else {
-        button.style.backgroundColor = "transparent";
-        button.style.color = "white";
-    }
-}
-
-
-
 
 //text input events
 
@@ -155,30 +141,4 @@ class counter {
 
 var timer = new counter();
 
-
-//misc
-/*
-startButton.addEventListener("")
-startButton.addEventListener("mouseenter", (e) => {
-    
-    buttonBackground(e.target, true);
-});
-startButton.addEventListener("mouseleave", (e) => {
-    buttonBackground(e.target, false);
-});
-
-pauseResumeButton.addEventListener("mouseenter", (e) => {
-    buttonBackground(e.target, true);
-});
-pauseResumeButton.addEventListener("mouseleave", (e) => {
-    buttonBackground(e.target, false);
-});
-
-cancelButton.addEventListener("mouseenter", (e) => {
-    buttonBackground(e.target, true);
-});
-cancelButton.addEventListener("mouseleave", (e) => {
-    buttonBackground(e.target, false);
-});
-*/
 

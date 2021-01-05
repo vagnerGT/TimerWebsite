@@ -19,11 +19,20 @@
 
     <div id="main" class="timer">
         <div id="counter">
-            <input id="hour" type="text" name="time" value="00" maxlength="2">
+            <div>
+                <span id="float-text">Hour</span>
+                <input id="hour" type="text" name="time" value="00" maxlength="2">
+            </div>
             <span>:</span>
-            <input id="minute" type="text" name="time" value="00" maxlength="2">
+            <div>
+                <span id="float-text">Minute</span>
+                <input id="minute" type="text" name="time" value="00" maxlength="2">
+            </div>
             <span>:</span>
-            <input id="second" type="text" name="time" value="00" maxlength="2">
+            <div>
+                <span id="float-text">Second</span>
+                <input id="second" type="text" name="time" value="00" maxlength="2">
+            </div>
         </div>
         <div id="buttons">
             <button id="pause-resume-button" class="pause-resume-button noselect">Pause</button>

@@ -6,7 +6,7 @@
 }
 
 html {
-    height: 100%;
+
 }
 
 @font-face {
@@ -22,11 +22,11 @@ html {
 
 .noselect {
     -webkit-touch-callout: none;
-      -webkit-user-select: none;
-       -khtml-user-select: none;
-         -moz-user-select: none;
-          -ms-user-select: none;
-              user-select: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   }
 
 /* header */
@@ -66,21 +66,34 @@ body {
 
 .timer {
     width: 100vw;
+    height: 50vh;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
 }
 
 .timer #counter {
-    margin-top: 20vh;
+    margin: 15vh 0;
     display: flex;
-    align-items: center;
     justify-content: center;
-
+    align-items: center;
 }
 
 .timer span {
     font-family: anton-regular;
+    margin-top: 20px;
     font-size: 50px;
     font-weight: bold;
     color: white;
+}
+
+.timer #float-text {
+    display: block;
+    margin: 5px auto;
+    font-family: roboto-black;
+    font-size: 13px;
+    text-align: center;
+    color: rgb(170, 170, 170);
 }
 
 .timer input {
@@ -90,10 +103,11 @@ body {
     color: white;
     text-align: center;
     width: 5.2rem;
+    height: 4rem;
     background-color: transparent;
     border-style: none;
     outline: none;
-    margin: 5px 10px;
+    margin: 0px 10px;
 }
 
 .timer input:hover {
@@ -101,7 +115,9 @@ body {
 }
 
 .timer input:focus {
-    outline: 3px solid rgba(0, 0, 0, 0.5);
+    height: 5rem;
+    margin-top: 5px;
+    outline: 4px solid rgba(0, 0, 0, 0.5);
     cursor: auto;
 }
 
@@ -109,7 +125,7 @@ body {
     position: relative;
     max-width: 400px;
     width: 85vw;
-    margin: 10vh auto;
+    margin: 0 auto;
 }
 
 .timer button {
@@ -161,27 +177,27 @@ body {
 /* animations */
 
 .fade-in {
-    animation: 0.1s ease-out forwards fade-in;
+    animation: 0.5s ease-out forwards fade-in;
 }
 
 .fade-out {
-    animation: 0.1s ease-out forwards fade-out;
+    animation: 0.2s ease-out forwards fade-out;
 }
 
 .right-slide-in {
-    animation: 0.1s ease-out forwards right-slide-in;
+    animation: 0.2s ease-out forwards right-slide-in;
 }
 
 .left-slide-out {
-    animation: 0.1s ease-in forwards left-slide-out;
+    animation: 0.2s ease-in forwards left-slide-out;
 }
 
 .left-slide-in {
-    animation: 0.1s ease-out forwards left-slide-in;
+    animation: 0.2s ease-out forwards left-slide-in;
 }
 
 .right-slide-out {
-    animation: 0.1s ease-in forwards right-slide-out;
+    animation: 0.2s ease-in forwards right-slide-out;
 }
 
 @keyframes fade-in {
@@ -190,7 +206,7 @@ body {
 }
 
 @keyframes fade-out {
-    0% {pointer-events: all;opacity: 1;}
+    0% {pointer-events: none;opacity: 1;}
     100% {pointer-events: none;opacity: 0;}
 }
 
@@ -200,7 +216,7 @@ body {
 }
 
 @keyframes left-slide-out {
-    0% {transform: translateX(0);pointer-events: all;opacity: 1;}
+    0% {transform: translateX(0);pointer-events: none;opacity: 1;}
     100% {transform: translateX(-50%);pointer-events: none;opacity: 0;}
 }
 
@@ -210,7 +226,7 @@ body {
 }
 
 @keyframes right-slide-out {
-    0% {transform: translateX(0);pointer-events: all;opacity: 1;}
+    0% {transform: translateX(0);pointer-events: none;opacity: 1;}
     100% {transform: translateX(50%);pointer-events: none;opacity: 0;}
 }
 
