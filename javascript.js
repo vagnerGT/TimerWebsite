@@ -46,6 +46,7 @@ function blockNonNumericInput (e) {
     }
     if (e.key.match(/[\D]/)) {
         e.preventDefault();
+        e.stopPropagation();
     }
 }
 
@@ -58,11 +59,11 @@ function pasteOnlyNumbers (e) {
 
 //Buttons events
 
-startButton.addEventListener("pointerup", startTimer);
-pauseResumeButton.addEventListener("mouseup", togglePauseResume);
-cancelButton.addEventListener("mouseup", cancelTimer);
+startButton.addEventListener("pointerup", startTimerButton);
+pauseResumeButton.addEventListener("mouseup", togglePauseResumeButton);
+cancelButton.addEventListener("mouseup", cancelTimerButton);
 
-function startTimer(e) {
+function startTimerButton(e) {
     cancelButton.classList.remove("right-slide-in");
     cancelButton.classList.remove("left-slide-out");
     cancelButton.offsetHeight;
@@ -79,7 +80,7 @@ function startTimer(e) {
     startButton.classList.add("fade-out");
 }
 
-function togglePauseResume(e) {
+function togglePauseResumeButton(e) {
     if(e.target.innerHTML == "Pause") {
         e.target.innerHTML = "Resume";
     }else{
@@ -87,7 +88,7 @@ function togglePauseResume(e) {
     }
 }
 
-function cancelTimer(e) {
+function cancelTimerButton(e) {
     cancelButton.classList.remove("right-slide-in");
     cancelButton.classList.remove("left-slide-out");
     cancelButton.offsetHeight;

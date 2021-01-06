@@ -5,11 +5,6 @@
     --aqua: #87fff2;
 }
 
-html {
-    height: 100vh;
-    box-shadow: inset 0px 0px 50px 10px rgba(0, 0, 0, 0.3);
-}
-
 @font-face {
     font-family: roboto-black;
     src: url(./fonts/Roboto-Black.ttf) format("truetype");
@@ -60,9 +55,11 @@ html {
 
 body {
     margin: 0px;
-    /*background-color: #3442BF;*/
+    height: 100vh;
+    overflow: hidden;
     background: #3442BF;
-    background: linear-gradient(45deg, rgba(0,82,255,1) 10%, rgba(52,66,191,1) 50%, rgba(117,42,196,1) 90%);
+    background: linear-gradient(45deg, rgba(0,82,255,1) 10%, rgba(52,66,191,1) 51%, rgba(141,0,255,1) 93%);
+    /*box-shadow: inset 0px 0px 50px 10px rgba(0, 0, 0, 0.3);*/
 }
 
 /* timer */
@@ -70,14 +67,12 @@ body {
 .timer {
     width: 100vw;
     height: 50vh;
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
 }
 
 .timer #counter {
-    filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.5));
-    margin: 15vh 0;
+    filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.7));
+    margin-top: 20vh;
+    height: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -129,7 +124,7 @@ body {
     position: relative;
     max-width: 400px;
     width: 85vw;
-    margin: 0 auto;
+    margin: 30vh auto 0 auto;
 }
 
 .timer button {
@@ -181,11 +176,11 @@ body {
 /* animations */
 
 .fade-in {
-    animation: 0.2s ease-out forwards fade-in;
+    animation: 0.2s ease-in forwards fade-in;
 }
 
 .fade-out {
-    animation: 0.2s ease-out forwards fade-out;
+    animation: 0.2s ease-in forwards fade-out;
 }
 
 .right-slide-in {
