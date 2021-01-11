@@ -3,44 +3,43 @@ var minuteInput = document.getElementById("minute");
 var secondInput = document.getElementById("second");
 
 var startButton = document.getElementById("start-button");
-var pauseResumeButton = document.getElementById("pause-resume-button");
+var pauseButton = document.getElementById("pause-button");
 var cancelButton = document.getElementById("cancel-button");
 
 
-//text input events
+//input events
 
-hourInput.addEventListener("focus", selectAll);
-hourInput.addEventListener("focusout", formatText);
-hourInput.addEventListener("keypress", blockNonNumericInput);
-hourInput.addEventListener("paste", pasteOnlyNumbers);
+hourInput.addEventListener("focus", OnInputFocus);
+hourInput.addEventListener("focusout", onInputFocusOut);
+hourInput.addEventListener("keypress", onInputKeypress);
+hourInput.addEventListener("paste", onInputPaste);
 
-minuteInput.addEventListener("focusout", formatText);
-minuteInput.addEventListener("focus", selectAll);
-minuteInput.addEventListener("keypress", blockNonNumericInput);
-minuteInput.addEventListener("paste", pasteOnlyNumbers);
+minuteInput.addEventListener("focus", OnInputFocus);
+minuteInput.addEventListener("focusout", onInputFocusOut);
+minuteInput.addEventListener("keypress", onInputKeypress);
+minuteInput.addEventListener("paste", onInputPaste);
 
-secondInput.addEventListener("focus", selectAll);
-secondInput.addEventListener("focusout", formatText);
-secondInput.addEventListener("keypress", blockNonNumericInput);
-secondInput.addEventListener("paste", pasteOnlyNumbers);
+secondInput.addEventListener("focus", OnInputFocus);
+secondInput.addEventListener("focusout", onInputFocusOut);
+secondInput.addEventListener("keypress", onInputKeypress);
+secondInput.addEventListener("paste", onInputPaste);
 
-function selectAll(e) {
+startButton.addEventListener("mouseup", onStartButton);
+pauseButton.addEventListener("mouseup", onPauseButton);
+cancelButton.addEventListener("mouseup", onCancelButton);
+
+
+//event functions
+
+function OnInputFocus(e) {
     e.target.select();
 }
 
-function formatText (e) {
-    const maxValue = {
-        hour: 99,
-        minute: 60,
-        second: 60,
-    };
-
-    if (e.target.value > maxValue[e.target.id]) e.target.value = maxValue[e.target.id];
-    if (e.target.value.length == 1) e.target.value = "0"+e.target.value;
-    if (e.target.value.length == 0) e.target.value = "00";
+function onInputFocusOut(e) {
+    e.target.value = formatText(e.target.value, e.target.id);
 }
 
-function blockNonNumericInput (e) {
+function onInputKeypress(e) {
     if (e.key === "Enter") {
         e.target.blur();
     }
@@ -50,96 +49,155 @@ function blockNonNumericInput (e) {
     }
 }
 
-function pasteOnlyNumbers (e) {
+function onInputPaste(e) {
     const paste =  e.clipboardData.getData("text").replace(/\D/g, "");
     document.execCommand("insertHTML", false, paste);
     e.preventDefault();
+    e.stopPropagation();
 }
 
-
-//Buttons events
-
-startButton.addEventListener("pointerup", startTimerButton);
-pauseResumeButton.addEventListener("mouseup", togglePauseResumeButton);
-cancelButton.addEventListener("mouseup", cancelTimerButton);
-
-function startTimerButton(e) {
+function onStartButton(e) {
     cancelButton.classList.remove("right-slide-in");
     cancelButton.classList.remove("left-slide-out");
     cancelButton.offsetHeight;
     cancelButton.classList.add("right-slide-in");
 
-    pauseResumeButton.classList.remove("left-slide-in");
-    pauseResumeButton.classList.remove("right-slide-out");
-    pauseResumeButton.offsetHeight;
-    pauseResumeButton.classList.add("left-slide-in");
+    pauseButton.classList.remove("left-slide-in");
+    pauseButton.classList.remove("right-slide-out");
+    pauseButton.offsetHeight;
+    pauseButton.classList.add("left-slide-in");
 
     startButton.classList.remove("fade-in");
     startButton.classList.remove("fade-out");
     startButton.offsetHeight;
     startButton.classList.add("fade-out");
+
+    timer.set(hourInput.value, minuteInput.value, secondInput.value);
+    timer.start();
+    inputTextAutoUpdater(true);
 }
 
-function togglePauseResumeButton(e) {
+function onPauseButton(e) {
     if(e.target.innerHTML == "Pause") {
         e.target.innerHTML = "Resume";
+        timer.pause();
     }else{
         e.target.innerHTML = "Pause";
+        timer.resume();
     }
+
+    updateInputText();
 }
 
-function cancelTimerButton(e) {
+function onCancelButton(e) {
     cancelButton.classList.remove("right-slide-in");
     cancelButton.classList.remove("left-slide-out");
     cancelButton.offsetHeight;
     cancelButton.classList.add("left-slide-out");
 
-    pauseResumeButton.classList.remove("left-slide-in");
-    pauseResumeButton.classList.remove("right-slide-out");
-    pauseResumeButton.offsetHeight;
-    pauseResumeButton.classList.add("right-slide-out");
+    pauseButton.classList.remove("left-slide-in");
+    pauseButton.classList.remove("right-slide-out");
+    pauseButton.offsetHeight;
+    pauseButton.classList.add("right-slide-out");
 
     startButton.classList.remove("fade-in");
     startButton.classList.remove("fade-out");
     startButton.offsetHeight;
     startButton.classList.add("fade-in");
 
-    pauseResumeButton.innerHTML = "Pause";
+    pauseButton.innerHTML = "Pause";
+    timer.cancel();
+    inputTextAutoUpdater(false);
 }
 
 
-//Timer
+//functions
 
-class counter {
+var inputTextAutoUpdater = function (on){
+    updateInputText();
 
-    constructor () {
-        this.startTime = 0;
-        this.endTime = 0;
-        this.paused = false;
+    if (on){
+        this.timeout = setTimeout(inputTextAutoUpdater, 100, true);
+    }else {
+        clearTimeout(this.timeout);
     }
+};
 
-    timeNow(){
-        return Math.ceil(new Date().getTime() / 1000);
-    }
+function formatText (text, type){
+    const max = {
+        hour: 99,
+        minute: 60,
+        second: 60,
+    };
 
-    setTimer(hour, minute, second) {
-        this.startTime = timeNow();
-        this.endTime = this.startTime + (hour * 3600) + (minute * 60) + (second);
-    }
-
-    getTime(){
-        let timeLeft = endTimer - timeNow();
-        if(timeLeft <= 0) return [0, 0, 0];
-
-        let hour = Math.floor(timeLeft / 3600);
-        let minute = Math.floor(timeLeft % 3600 / 60);
-        let second = timeLeft % 3600 % 60;
-
-        return [hour, minute, second];
-    }
-    
+    text = text.replace(/\D/g, "");
+    if (text > max[type]) text = max[type];
+    if (text.length == 1) text = "0"+text;
+    if (text.length == 0) text = "00";
+    return text;
 }
 
-var timer = new counter();
+function updateInputText (){
+    const timeValue = timer.getTime();
+    hourInput.value = formatText(String(timeValue.hour), "hour");
+    minuteInput.value = formatText(String(timeValue.minute), "minute");
+    secondInput.value = formatText(String(timeValue.second), "second");
+};
 
+var timer = (function (){
+    let defaultTime = 0;
+    let timeLeft = 0;
+    let timePoint = 0;
+    let paused = true;
+
+    function now (){
+        return new Date().getTime();
+    }
+
+    function updateTimeLeft(){
+        timeLeft -= Math.max(now()-timePoint, 0);
+        timePoint = now();
+    }
+
+    return {
+        set: function (hour, minute, second) {
+            defaultTime = ((Number(hour) * 3600) + (Number(minute) * 60) + (Number(second))) * 1000;
+        },
+
+        start: function (){
+            timeLeft = defaultTime;
+            timePoint = now();
+            paused = false;
+        },
+
+        cancel: function (){
+            timeLeft = defaultTime;
+            paused = true;
+        },
+
+        pause: function (){
+            if(paused) return;
+            updateTimeLeft();
+            paused = true;
+        },
+
+        resume: function (){
+            if(!paused) return;
+            timePoint = now();
+            paused = false;
+        },
+
+        getTime: function (){
+            if (!paused) updateTimeLeft();
+            if (timeLeft <= 0) return {hour: 0, minute: 0, second: 0};
+
+            let seconds = Math.ceil(timeLeft/1000);
+            return {
+                hour: Math.floor(seconds / 3600),
+                minute: Math.floor(seconds % 3600 / 60),
+                second: seconds % 3600 % 60,
+            };
+        },
+    }
+})();
 
