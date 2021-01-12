@@ -6,6 +6,8 @@ var startButton = document.getElementById("start-button");
 var pauseButton = document.getElementById("pause-button");
 var cancelButton = document.getElementById("cancel-button");
 
+var alarm = document.getElementById("alarm");
+
 
 //input events
 
@@ -24,9 +26,9 @@ secondInput.addEventListener("focusout", onInputFocusOut);
 secondInput.addEventListener("keypress", onInputKeypress);
 secondInput.addEventListener("paste", onInputPaste);
 
-startButton.addEventListener("mouseup", onStartButton);
-pauseButton.addEventListener("mouseup", onPauseButton);
-cancelButton.addEventListener("mouseup", onCancelButton);
+startButton.addEventListener("mouseup", startButtonActons);
+pauseButton.addEventListener("mouseup", pauseButtonActions);
+cancelButton.addEventListener("mouseup", cancelButtonActions);
 
 
 //event functions
@@ -56,14 +58,14 @@ function onInputPaste(e) {
     e.stopPropagation();
 }
 
-function onStartButton(e) {
-    cancelButton.classList.remove("right-slide-in");
+function startButtonActons(e) {
     cancelButton.classList.remove("left-slide-out");
+    cancelButton.classList.remove("right-slide-in");
     cancelButton.offsetHeight;
     cancelButton.classList.add("right-slide-in");
 
-    pauseButton.classList.remove("left-slide-in");
     pauseButton.classList.remove("right-slide-out");
+    pauseButton.classList.remove("left-slide-in");
     pauseButton.offsetHeight;
     pauseButton.classList.add("left-slide-in");
 
@@ -72,12 +74,13 @@ function onStartButton(e) {
     startButton.offsetHeight;
     startButton.classList.add("fade-out");
 
+    disableInputs(true);
     timer.set(hourInput.value, minuteInput.value, secondInput.value);
     timer.start();
     inputTextAutoUpdater(true);
 }
 
-function onPauseButton(e) {
+function pauseButtonActions(e) {
     if(e.target.innerHTML == "Pause") {
         e.target.innerHTML = "Resume";
         timer.pause();
@@ -89,7 +92,7 @@ function onPauseButton(e) {
     updateInputText();
 }
 
-function onCancelButton(e) {
+function cancelButtonActions() {
     cancelButton.classList.remove("right-slide-in");
     cancelButton.classList.remove("left-slide-out");
     cancelButton.offsetHeight;
@@ -100,25 +103,34 @@ function onCancelButton(e) {
     pauseButton.offsetHeight;
     pauseButton.classList.add("right-slide-out");
 
-    startButton.classList.remove("fade-in");
     startButton.classList.remove("fade-out");
+    startButton.classList.remove("fade-in");
     startButton.offsetHeight;
     startButton.classList.add("fade-in");
 
+    inputTextAutoUpdater(false);
+    disableInputs(false);
     pauseButton.innerHTML = "Pause";
     timer.cancel();
-    inputTextAutoUpdater(false);
+    updateInputText();
 }
 
 
 //functions
 
+function disableInputs(option) {
+    hourInput.disabled = option;
+    minuteInput.disabled = option;
+    secondInput.disabled = option;
+}
+
 var inputTextAutoUpdater = function (on){
-    updateInputText();
+    this.value = true;
 
     if (on){
         this.timeout = setTimeout(inputTextAutoUpdater, 100, true);
-    }else {
+        updateInputText();
+    }else{
         clearTimeout(this.timeout);
     }
 };
@@ -142,6 +154,24 @@ function updateInputText (){
     hourInput.value = formatText(String(timeValue.hour), "hour");
     minuteInput.value = formatText(String(timeValue.minute), "minute");
     secondInput.value = formatText(String(timeValue.second), "second");
+
+    if(timeValue.hour + timeValue.minute + timeValue.second == 0){
+        cancelButtonActions();
+        alarm.currentTime = 0;
+        alarm.play();
+
+        hourInput.classList.remove("pop-up");
+        hourInput.offsetHeight;
+        hourInput.classList.add("pop-up");
+
+        minuteInput.classList.remove("pop-up");
+        minuteInput.offsetHeight;
+        minuteInput.classList.add("pop-up");
+
+        secondInput.classList.remove("pop-up");
+        secondInput.offsetHeight;
+        secondInput.classList.add("pop-up");
+    }
 };
 
 var timer = (function (){

@@ -175,6 +175,10 @@ body {
 
 /* animations */
 
+.pop-up {
+    animation: 0.3s ease-in pop-up;
+}
+
 .fade-in {
     animation: 0.1s ease-in forwards fade-in;
 }
@@ -197,6 +201,12 @@ body {
 
 .right-slide-out {
     animation: 0.1s ease-in forwards right-slide-out;
+}
+
+@keyframes pop-up {
+    0% {transform: scale(1);}
+    50% {transform: scale(1.1);}
+    100% {transform: scale(1);}
 }
 
 @keyframes fade-in {
