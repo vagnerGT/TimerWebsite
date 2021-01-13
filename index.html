@@ -8,41 +8,40 @@
     <link rel="shortcut icon" href="./icons/favicon.ico" type="image/x-icon">
 </head>
 <body>
+    
     <div id="header" class="header">
-            <a href="index.html">
+        <a class="logo-container" href="index.html">
             <img class="logo" src="./images/logo.png" alt="logo"></li>
-            <span>Timer</span>
-            </a>
+            <span class="logo-text">Timer</span>
+        </a>
     </div>
 
-    <!-- A rX,rY rotation, arc, sweep, eX,eY -->
     <audio id="alarm" src="./sounds/alarm.mp3"></audio>
 
-    <div id="main" class="timer">
-        <div id="counter">
+    <div class="container flex-column">
+        <div class="counter-container flex-row drop-shadow">
             <div>
-                <span id="float-text">Hour</span>
-                <input id="hour" type="tel" name="time" value="00" maxlength="2">
+                <span class="float-text">Hour</span>
+                <input id="hour" class="text-input" type="tel" autocomplete="off" value="00" maxlength="2">
             </div>
-            <span>:</span>
+            <span style="padding-top:20px" class="white-text">:</span>
             <div>
-                <span id="float-text">Minute</span>
-                <input id="minute" type="tel" name="time" value="00" maxlength="2">
+                <span class="float-text">Minute</span>
+                <input id="minute" class="text-input" type="tel" autocomplete="off" value="00" maxlength="2">
             </div>
-            <span>:</span>
+            <span style="padding-top:20px" class="white-text">:</span>
             <div>
-                <span id="float-text">Second</span>
-                <input id="second" type="tel" name="time" value="00" maxlength="2">
+                <span class="float-text">Second</span>
+                <input id="second" class="text-input" type="tel" autocomplete="off" value="00" maxlength="2">
             </div>
         </div>
-        <div id="buttons">
-            <button id="pause-button" class="pause-button noselect">Pause</button>
-            <button id="start-button" class="start-button noselect fade-in">Start</button>
-            <button id="cancel-button" class="cancel-button noselect">Cancel</button>
+        <div class="buttons-container flex-column">
+            <button id="pause-button" class="button pause-button noselect">Pause</button>
+            <button id="start-button" class="button start-button noselect fade-in">Start</button>
+            <button id="cancel-button" class="button cancel-button noselect">Cancel</button>
         </div>
     </div>
 
-    
 </body>
     <script src="javascript.js"></script>
 </html>

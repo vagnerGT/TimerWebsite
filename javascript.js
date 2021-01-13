@@ -59,25 +59,11 @@ function onInputPaste(e) {
 }
 
 function startButtonActons(e) {
-    cancelButton.classList.remove("left-slide-out");
-    cancelButton.classList.remove("right-slide-in");
-    cancelButton.offsetHeight;
-    cancelButton.classList.add("right-slide-in");
-
-    pauseButton.classList.remove("right-slide-out");
-    pauseButton.classList.remove("left-slide-in");
-    pauseButton.offsetHeight;
-    pauseButton.classList.add("left-slide-in");
-
-    startButton.classList.remove("fade-in");
-    startButton.classList.remove("fade-out");
-    startButton.offsetHeight;
-    startButton.classList.add("fade-out");
-
+    playAnimation.showMenu2();
     disableInputs(true);
     timer.set(hourInput.value, minuteInput.value, secondInput.value);
     timer.start();
-    inputTextAutoUpdater(true);
+    inputTextAutoUpdater.start();
 }
 
 function pauseButtonActions(e) {
@@ -93,22 +79,8 @@ function pauseButtonActions(e) {
 }
 
 function cancelButtonActions() {
-    cancelButton.classList.remove("right-slide-in");
-    cancelButton.classList.remove("left-slide-out");
-    cancelButton.offsetHeight;
-    cancelButton.classList.add("left-slide-out");
-
-    pauseButton.classList.remove("left-slide-in");
-    pauseButton.classList.remove("right-slide-out");
-    pauseButton.offsetHeight;
-    pauseButton.classList.add("right-slide-out");
-
-    startButton.classList.remove("fade-out");
-    startButton.classList.remove("fade-in");
-    startButton.offsetHeight;
-    startButton.classList.add("fade-in");
-
-    inputTextAutoUpdater(false);
+    playAnimation.showMenu1();
+    inputTextAutoUpdater.stop();
     disableInputs(false);
     pauseButton.innerHTML = "Pause";
     timer.cancel();
@@ -118,24 +90,40 @@ function cancelButtonActions() {
 
 //functions
 
-function disableInputs(option) {
-    hourInput.disabled = option;
-    minuteInput.disabled = option;
-    secondInput.disabled = option;
+function disableInputs(value) {
+    hourInput.disabled = value;
+    minuteInput.disabled = value;
+    secondInput.disabled = value;
 }
 
-var inputTextAutoUpdater = function (on){
-    this.value = true;
+var inputTextAutoUpdater = (function () {
+    let frequency = 100;
+    let value = false;
 
-    if (on){
-        this.timeout = setTimeout(inputTextAutoUpdater, 100, true);
-        updateInputText();
-    }else{
-        clearTimeout(this.timeout);
-    }
-};
+    function resetCounter() {
+        cancelButtonActions();
+        playAnimation.counterPopUp();
+    };
 
-function formatText (text, type){
+    let updater = setInterval(function (){
+        if (value){
+            updateInputText();
+            if(timer.isfinished()) resetCounter();
+        }
+    }, frequency);
+
+    return {
+        start: function () {
+            value = true;
+        },
+        stop: function () {
+            value = false;
+        },
+    };
+
+})();
+
+function formatText (text, type) {
     const max = {
         hour: 99,
         minute: 60,
@@ -154,24 +142,6 @@ function updateInputText (){
     hourInput.value = formatText(String(timeValue.hour), "hour");
     minuteInput.value = formatText(String(timeValue.minute), "minute");
     secondInput.value = formatText(String(timeValue.second), "second");
-
-    if(timeValue.hour + timeValue.minute + timeValue.second == 0){
-        cancelButtonActions();
-        alarm.currentTime = 0;
-        alarm.play();
-
-        hourInput.classList.remove("pop-up");
-        hourInput.offsetHeight;
-        hourInput.classList.add("pop-up");
-
-        minuteInput.classList.remove("pop-up");
-        minuteInput.offsetHeight;
-        minuteInput.classList.add("pop-up");
-
-        secondInput.classList.remove("pop-up");
-        secondInput.offsetHeight;
-        secondInput.classList.add("pop-up");
-    }
 };
 
 var timer = (function (){
@@ -185,11 +155,15 @@ var timer = (function (){
     }
 
     function updateTimeLeft(){
-        timeLeft -= Math.max(now()-timePoint, 0);
+        timeLeft = Math.max(timeLeft - (now()-timePoint), 0);
         timePoint = now();
     }
 
     return {
+        isfinished: function () {
+            return paused ? false : timeLeft === 0 ? true : false;
+        },
+
         set: function (hour, minute, second) {
             defaultTime = ((Number(hour) * 3600) + (Number(minute) * 60) + (Number(second))) * 1000;
         },
@@ -221,7 +195,7 @@ var timer = (function (){
             if (!paused) updateTimeLeft();
             if (timeLeft <= 0) return {hour: 0, minute: 0, second: 0};
 
-            let seconds = Math.ceil(timeLeft/1000);
+            let seconds = Math.floor(timeLeft/1000);
             return {
                 hour: Math.floor(seconds / 3600),
                 minute: Math.floor(seconds % 3600 / 60),
@@ -231,3 +205,56 @@ var timer = (function (){
     }
 })();
 
+var playAnimation = {
+    counterPopUp: function () {
+        alarm.currentTime = 0;
+        alarm.volume = 0.3;
+        alarm.play();
+
+        hourInput.classList.remove("pop-up");
+        hourInput.offsetHeight;
+        hourInput.classList.add("pop-up");
+
+        minuteInput.classList.remove("pop-up");
+        minuteInput.offsetHeight;
+        minuteInput.classList.add("pop-up");
+
+        secondInput.classList.remove("pop-up");
+        secondInput.offsetHeight;
+        secondInput.classList.add("pop-up");
+    },
+
+    showMenu1: function () {
+        cancelButton.classList.remove("right-slide-in");
+        cancelButton.classList.remove("left-slide-out");
+        cancelButton.offsetHeight;
+        cancelButton.classList.add("left-slide-out");
+
+        pauseButton.classList.remove("left-slide-in");
+        pauseButton.classList.remove("right-slide-out");
+        pauseButton.offsetHeight;
+        pauseButton.classList.add("right-slide-out");
+
+        startButton.classList.remove("fade-out");
+        startButton.classList.remove("fade-in");
+        startButton.offsetHeight;
+        startButton.classList.add("fade-in");
+    },
+
+    showMenu2: function () {
+        cancelButton.classList.remove("left-slide-out");
+        cancelButton.classList.remove("right-slide-in");
+        cancelButton.offsetHeight;
+        cancelButton.classList.add("right-slide-in");
+    
+        pauseButton.classList.remove("right-slide-out");
+        pauseButton.classList.remove("left-slide-in");
+        pauseButton.offsetHeight;
+        pauseButton.classList.add("left-slide-in");
+    
+        startButton.classList.remove("fade-in");
+        startButton.classList.remove("fade-out");
+        startButton.offsetHeight;
+        startButton.classList.add("fade-out");  
+    },
+};

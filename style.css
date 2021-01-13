@@ -1,20 +1,32 @@
-:root {
-    --blue: #4007ff;
-    --indigo: #2800af;
-    --purple: #6a18ea;
-    --aqua: #87fff2;
-}
-
 @font-face {
     font-family: roboto-black;
     src: url(./fonts/Roboto-Black.ttf) format("truetype");
-  }
+}
 @font-face {
     font-family: anton-regular;
     src: url(./fonts/Anton-Regular.ttf) format("truetype");
 }
 
-/* tools */
+html {
+    overflow: hidden;
+    touch-action: manipulation;
+}
+
+body {
+    margin: 0px;
+    height: 100vh;
+    background: 127bd0;
+    background: linear-gradient(45deg, #1512d0, #1255d0, #126bd0, #1255d0, #1512d0);
+}
+
+a {
+    text-decoration: none;
+}
+
+input, button:hover {
+    cursor: pointer;
+}
+
 
 .noselect {
     -webkit-touch-callout: none;
@@ -23,69 +35,69 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-  }
-
-/* header */
+}
 
 .header {
     margin: 0px;
 }
 
-.header img {
+.logo {
     height: 30px;
-    -webkit-filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.2));
-    filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.2));
+    filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.5));
 }
 
-.header a {
+.logo-text {
+    font-size: 25px;
+    font-weight: bold;
+    font-family: roboto-black;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+    color: white;
+}
+
+.logo-container {
     margin: 2vh 2vw;
     display: inline-flex;
     align-items: center;
-    text-decoration: none;
-    font-size: 25px;
-    color: rgb(255, 255, 255);
-    font-weight: bold;
-    font-family: roboto-black;
-    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
     -webkit-tap-highlight-color: transparent;
 }
 
-
-/* body */
-
-body {
-    margin: 0px;
-    height: 100vh;
-    overflow: hidden;
-    background: 127bd0;
-    background: linear-gradient(45deg, #1512d0, #1255d0, #126bd0, #1255d0, #1512d0);
-}
-
-/* timer */
-
-.timer {
+.container {
+    box-sizing: border-box;
+    padding: 15vh 0;
     width: 100vw;
-    height: 50vh;
+    max-height: 70vh;
 }
 
-.timer #counter {
-    filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.7));
-    margin-top: 20vh;
-    height: 30px;
+.counter-container {
+    height: 80px;
+    width: fit-content;
+}
+
+.buttons-container {
+    position: relative;
+    max-width: 400px;
+    width: 85vw;
+    margin: 30vh auto 0 auto;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-row {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.timer span {
-    font-family: anton-regular;
-    margin-top: 20px;
-    font-size: 50px;
-    font-weight: bold;
-    color: white;
+.drop-shadow {
+    filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.7));
 }
 
-.timer #float-text {
+.float-text {
     display: block;
     margin: 5px auto;
     font-family: roboto-black;
@@ -94,13 +106,21 @@ body {
     color: rgb(187, 187, 187);
 }
 
-.timer input {
+.white-text {
+    font-family: anton-regular;
+    text-align: center;
+    font-size: 50px;
+    font-weight: bold;
+    color: white;
+}
+
+.text-input {
     transition: ease-out 0.2s;
     font-family: roboto-black;
-    font-size: 70px;
-    color: white;
+    font-size: 75px;
     text-align: center;
-    width: 5.2rem;
+    color: white;
+    width: 6rem;
     height: 4rem;
     background-color: transparent;
     border-style: none;
@@ -108,25 +128,14 @@ body {
     margin: 0px 10px;
 }
 
-.timer input:hover {
-    cursor: pointer;
-}
-
-.timer input:focus {
+.text-input:focus {
     height: 5rem;
     margin-top: 5px;
     outline: 4px solid rgba(0, 0, 0, 0.5);
     cursor: auto;
 }
 
-.timer #buttons {
-    position: relative;
-    max-width: 400px;
-    width: 85vw;
-    margin: 30vh auto 0 auto;
-}
-
-.timer button {
+.button {
     transition: ease 0.2s;
     border-radius: 30px;
     border-style: solid;
@@ -143,11 +152,7 @@ body {
     -webkit-tap-highlight-color: transparent;
 }
 
-.timer button:hover {
-    cursor: pointer;
-}
-
-.timer button:active {
+.button:active {
     border-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -243,7 +248,7 @@ body {
 /* hover effect */
 
 @media (hover: hover) {
-    .timer button:hover {
+    .button:hover {
         background-color: white;
         color: rgba(0, 0, 0, 0.5);
     }
@@ -253,11 +258,11 @@ body {
 /* media query */
 
 @media only screen and (max-width: 600px) {
-    .timer #counter {
+    .counter-container {
         transform: scale(0.7);
     }
 
-    .timer button {
+    .button {
         --scale: 0.8;
         border-width: calc(4px * var(--scale));
         width: calc(8rem * var(--scale));
@@ -267,11 +272,11 @@ body {
 }
 
 @media only screen and (max-width: 320px) {
-    .timer #counter {
+    .counter-container {
         transform: scale(0.6);
     }
 
-    .timer button {
+    .button {
         --scale: 0.7;
         border-width: calc(4px * var(--scale));
         width: calc(8rem * var(--scale));
